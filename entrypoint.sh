@@ -19,7 +19,9 @@ echo $DOCKER_HUB_PASSWORD | docker login -u $DOCKER_HUB_USERNAME --password-stdi
   -e INPUT_SERVICENAME=$INPUT_SERVICENAME \
   leanix/deployment-frequency-action) || true
 
+echo "Starting pivio with file $INPUT_SERVICENAME/pivio.yaml"
+
 (docker run --rm \
   -v $(pwd):/app/cloud-beta/$INPUT_SERVICENAME \
-  jeb-leanix/microservice-intelligence-pivio-client \
+  leanix/microservice-intelligence-pivio-client \
   python pivio.py run_cicd_pivio --host eu.leanix.net --token $EU_LEANIX_NET_MICROSERVICES_API_TOKEN --file $INPUT_SERVICENAME/pivio.yaml) || true
